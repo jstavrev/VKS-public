@@ -1,0 +1,56 @@
+﻿@using OnlineMovieStore.Web.Areas.Administration.Models
+@model AddMovieViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddMovie</h2>
+
+<form asp-controller="ManageMovies" asp-action="AddMovie" method="post">
+
+    <div class="form-group">
+        <label asp-for="Title"></label><br />
+        <input asp-for="Title" class="form-control" /><br />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Year"></label><br />
+        <input asp-for="Year" class="form-control" /><br />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+
+    @for (int i = 0; i < Model.Genres.Length; i++)
+    {
+        <div class="form-group">
+            <input type="checkbox" asp-for="@Model.Genres[i].IsChecked" />
+            <label asp-for="@Model.Genres[i].IsChecked">@Model.Genres[i].Name</label>
+            <input type="hidden" asp-for="@Model.Genres[i].Id" />
+            <input type="hidden" asp-for="@Model.Genres[i].Name" />
+        </div>
+    }
+
+    <div class="form-group">
+        <label asp-for="ActorId">Actors:</label><br />
+        <select asp-for="ActorId" asp-items="Model.Actors" class="form-control">
+            <option>Select lead actor</option>
+        </select><br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageURL"></label><br />
+        <input asp-for="ImageURL" class="form-control" />
+        <span asp-validation-for="ImageURL" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label><br />
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <br />
+    <br />
+
+    <button type="submit" class="form-control">Add</button>
+</form>

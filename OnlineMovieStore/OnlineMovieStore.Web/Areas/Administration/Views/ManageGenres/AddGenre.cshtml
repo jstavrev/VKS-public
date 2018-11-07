@@ -1,0 +1,21 @@
+﻿@model AddGenreViewModel
+@{
+    ViewData["Title"] = "AddGenre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddGenre</h2>
+
+<form asp-controller="ManageGenres" asp-action="AddGenre" method="post">
+
+    <div class="form-group">
+        <label asp-for="Name"></label><br />
+        <input asp-for="Name" class="form-control" /><br />
+    </div>
+
+    <br />
+    <br />
+
+    <button type="submit" class="form-control">Add</button>
+</form>
+

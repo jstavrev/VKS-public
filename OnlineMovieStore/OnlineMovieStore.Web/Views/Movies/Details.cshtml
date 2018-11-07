@@ -1,0 +1,33 @@
+﻿@model MoviesViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+
+<div class="text-center">
+    <h2>@Model.Title<span>(@Model.Year)</span></h2>
+    <img src="@Model.Image" class="text-center img-rounded" style="max-height: 500px; max-width: 500px;" alt="...">
+
+    <div>
+        <h4>
+            Genre: @foreach (var genre in Model.Genre)
+            {
+                <span>@genre.Genre.Name </span>
+            }
+        </h4>
+    </div>
+
+    <div>
+        <h4>
+            Price: @Model.Price$
+        </h4>
+    </div>
+    <div>
+        <button type="button" class="btn btn-secondary btn-lg">Buy movie</button>
+    </div>
+</div>
+
+
+

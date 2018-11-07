@@ -1,0 +1,33 @@
+﻿@page
+@model OnlineMovieStore.Web.Areas.Identity.Pages.Account.Manage.IndexModel
+
+@Html.Partial("_StatusMessage", Model.StatusMessage)
+<div id="exTab2" class="container">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#ordersDetails" data-toggle="tab">Orders Details</a>
+        </li>
+        <li>
+            <a href="#financeSettings" data-toggle="tab">Finance Settings</a>
+        </li>
+        <li>
+            <a href="#accountSettings" data-toggle="tab">Account Settings</a>
+        </li>
+    </ul>
+
+    <div class="tab-content ">
+        <div class="tab-pane active" id="ordersDetails">
+            @await Html.PartialAsync("Shered/_OrderDetails.cshtml")
+        </div>
+        <div class="tab-pane" id="financeSettings">
+            @await Html.PartialAsync("Shered/_FinanceSettings.cshtml")
+        </div>
+        <div class="tab-pane" id="accountSettings">
+            @*@await Html.PartialAsync("Shered/_AccountSettings.cshtml", Model)*@
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

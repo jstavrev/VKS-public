@@ -1,0 +1,31 @@
+﻿@using OnlineMovieStore.Web.Areas.Administration.Models
+@model AddActorViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddActor</h2>
+
+<form asp-controller="ManageActors" asp-action="AddActor" method="post">
+
+    <div class="form-group">
+        <label asp-for="FirstName"></label><br />
+        <input asp-for="FirstName" class="form-control" /><br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName"></label><br />
+        <input asp-for="LastName" class="form-control" /><br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Age"></label><br />
+        <input asp-for="Age" class="form-control" /><br />
+    </div>
+
+    <br />
+    <br />
+
+    <button type="submit" class="form-control">Add</button>
+</form>
+

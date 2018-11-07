@@ -1,0 +1,28 @@
+﻿@model OnlineMovieStore.Web.Models.UserMoviesViewModel
+
+@{
+    ViewData["Title"] = "My Movies";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    @{ foreach (var movie in Model.content)
+        {
+            <div class="col-sm-4">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="http://barkerhost.com/wp-content/uploads/sites/4/2016/11/zSgL998DXaljsCmwQuwDM8Ak4rV-0.jpg" alt="Avatar" style="width:300px;height:200px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>@movie.Title</h1>
+                            <p>@movie.Price</p>
+                            <p>.......</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+</div>

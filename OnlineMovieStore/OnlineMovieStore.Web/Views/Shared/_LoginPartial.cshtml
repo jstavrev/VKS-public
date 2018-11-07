@@ -1,0 +1,29 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+        <div class="dropdown">
+            <button asp-action="Index" asp-controller="Home" class="dropbtn">@UserManager.GetUserName(User) </button>
+            <ul class="dropdown-content  list-group">
+                <li class="list-group-item"> <a asp-action="MyMovies" asp-controller="User" asp-route-id="@UserManager.GetUserId(User)">My Movies</a></li>
+                <li class="list-group-item"> <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account</a></li>
+                <li class="list-group-item"><a asp-controller="User" asp-action="RequestMovie">Request Movie</a></li>
+                <li class="list-group-item"><a asp-area="" asp-controller="User" asp-action="Help">Help Center</a></li>
+                <li>
+                    <button class="btn btn-link list-group-item" type="submit">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+    </ul>
+}
