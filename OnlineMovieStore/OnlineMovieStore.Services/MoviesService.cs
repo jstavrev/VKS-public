@@ -99,7 +99,7 @@ namespace OnlineMovieStore.Services.Services
             return this.context.Movies.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
-        public IEnumerable<Movie> ListAllMovies(int page, string search)
+        public IEnumerable<Movie> ListMovies(int page, string search)
         {
             var moviesQuery = this.context.Movies
                 .AsQueryable();
@@ -109,20 +109,28 @@ namespace OnlineMovieStore.Services.Services
                 .Include(m => m.Genres)
                     .ThenInclude(mg => mg.Genre);
 
-            if (page > 0)
-            {
-                moviesQuery = moviesQuery.Skip(page * 10).Take(10);
-            }
 
             if (search != null)
             {
                 moviesQuery = moviesQuery.Where(m => m.Title.Contains(search));
             }
 
+            if (page == 0)
+            {
+                moviesQuery = moviesQuery.Take(1);
+            }
+
+            if (page > 0)
+            {
+                moviesQuery = moviesQuery.Skip(page * 1).Take(1);
+            }
+
+            
+
             var movies = moviesQuery.ToList();
 
             if (movies != null && movies.Count != 0)
-            {   
+            {
                 return movies;
             }
             else

@@ -16,6 +16,7 @@ namespace OnlineMovieStore.Web.Models
             this.ActorName = movie.Actor.FirstName + " " + movie.Actor.LastName;
             this.Price = movie.Price;
             this.Image = movie.Image;
+            this.AddedOn = movie.CreatedOn;
 
         }
 
@@ -25,5 +26,6 @@ namespace OnlineMovieStore.Web.Models
         public string ActorName { get; set; }
         public double Price { get; set; }
         public string Image { get; set; }
+        public DateTime? AddedOn { get;set; }
     }
 }

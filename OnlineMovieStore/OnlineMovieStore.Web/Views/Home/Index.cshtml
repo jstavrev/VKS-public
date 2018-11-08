@@ -2,46 +2,124 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="product-slider">
-    <div id="carousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="item active"> <img style=" width:1100px; height:500px;" src="https://www.filmonpaper.com/site/media/2013/02/DieHard_quad_UK-1.jpg"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+02"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+03"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+04"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+05"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+06"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+07"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+08"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+09"> </div>
-            <div class="item"> <img style="width:1100px; height:500px;" src="http://placehold.it/1600x700?text=Product+10"> </div>
-        </div>
-    </div>
-    <div class="clearfix">
-        <div id="thumbcarousel" class="carousel slide" data-interval="false">
-            <div class="carousel-inner">
-                <div class="item active">
-                    <div data-target="#carousel" data-slide-to="0" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+01"></div>
-                    <div data-target="#carousel" data-slide-to="1" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+02"></div>
-                    <div data-target="#carousel" data-slide-to="2" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+03"></div>
-                    <div data-target="#carousel" data-slide-to="3" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+04"></div>
-                    <div data-target="#carousel" data-slide-to="4" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+05"></div>
+        <div class="page">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="slider">
+                        <ul class="slides">
+                            <li><a href="#"><img src="~/dummy/DieHard.jpg" alt="Slide 1"></a></li>
+                            <li><a href="#"><img src="~/dummy/slide-2.jpg" alt="Slide 2"></a></li>
+                            <li><a href="#"><img src="~/dummy/slide-3.jpg" alt="Slide 3"></a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="item">
-                    <div data-target="#carousel" data-slide-to="5" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+06"></div>
-                    <div data-target="#carousel" data-slide-to="6" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+07"></div>
-                    <div data-target="#carousel" data-slide-to="7" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+08"></div>
-                    <div data-target="#carousel" data-slide-to="8" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+08"></div>
-                    <div data-target="#carousel" data-slide-to="9" class="thumb"><img src="http://placehold.it/100x80?text=Thumb+10"></div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-12">
+                            <div class="latest-movie">
+                                <a href="#"><img src="~/dummy/thumb-1.jpg" alt="Movie 1"></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                            <div class="latest-movie">
+                                <a href="#"><img src="~/dummy/thumb-2.jpg" alt="Movie 2"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .row -->
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="latest-movie">
+                        <a href="#"><img src="~/dummy/thumb-3.jpg" alt="Movie 3"></a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="latest-movie">
+                        <a href="#"><img src="~/dummy/thumb-4.jpg" alt="Movie 4"></a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="latest-movie">
+                        <a href="#"><img src="~/dummy/thumb-5.jpg" alt="Movie 5"></a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="latest-movie">
+                        <a href="#"><img src="~/dummy/thumb-6.jpg" alt="Movie 6"></a>
+                    </div>
+                </div>
+            </div> <!-- .row -->
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="section-title">December premiere</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                    <ul class="movie-schedule">
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                    </ul> <!-- .movie-schedule -->
+                </div>
+                <div class="col-md-4">
+                    <h2 class="section-title">November premiere</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                    <ul class="movie-schedule">
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                    </ul> <!-- .movie-schedule -->
+                </div>
+                <div class="col-md-4">
+                    <h2 class="section-title">October premiere</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                    <ul class="movie-schedule">
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                        <li>
+                            <div class="date">16/12</div>
+                            <h2 class="entry-title"><a href="#">Perspiciatis unde omnis</a></h2>
+                        </li>
+                    </ul> <!-- .movie-schedule -->
                 </div>
             </div>
-            <!-- /carousel-inner -->
-            <a class="left carousel-control" href="#thumbcarousel" role="button" data-slide="prev"> <i class="fa fa-angle-left" aria-hidden="true"></i> </a> <a class="right carousel-control" href="#thumbcarousel" role="button" data-slide="next"><i class="fa fa-angle-right" aria-hidden="true"></i> </a>
         </div>
-        <!-- /thumbcarousel -->
-    </div>
-</div>
 
 @*<div>
         @foreach (var movie in Model.Movies)

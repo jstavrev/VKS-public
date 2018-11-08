@@ -10,6 +10,8 @@ namespace OnlineMovieStore.Services.Contracts
 
         IEnumerable<Movie> ListAllMovies(int page = 1, int pageSize = 10);
 
+        IEnumerable<Movie> ListMovies(int page, string search);
+
         IEnumerable<Movie> ListByContainingText(string searchText, int page = 1, int pageSize = 10);
 
         IEnumerable<Movie> ListMoviesByActor(string firstName, string lastName);

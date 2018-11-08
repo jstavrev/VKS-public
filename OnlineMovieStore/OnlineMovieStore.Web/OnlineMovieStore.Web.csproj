@@ -34,6 +34,25 @@
 
   <ItemGroup>
     <Folder Include="Areas\User\" />
+    <Folder Include="wwwroot\sass\pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\js\min\app-min.js" />
+    <None Include="wwwroot\js\min\plugins-min.js" />
+    <None Include="wwwroot\sass\layout\_content.scss" />
+    <None Include="wwwroot\sass\layout\_footer.scss" />
+    <None Include="wwwroot\sass\layout\_header.scss" />
+    <None Include="wwwroot\sass\libs\bootstrap-grid\_grid.scss" />
+    <None Include="wwwroot\sass\libs\bootstrap-grid\_mixins.scss" />
+    <None Include="wwwroot\sass\libs\bootstrap-grid\_settings.scss" />
+    <None Include="wwwroot\sass\libs\_components.scss" />
+    <None Include="wwwroot\sass\libs\_global.scss" />
+    <None Include="wwwroot\sass\libs\_mixins.scss" />
+    <None Include="wwwroot\sass\libs\_normalize.scss" />
+    <None Include="wwwroot\sass\libs\_settings.scss" />
+    <None Include="wwwroot\sass\style.scss" />
   </ItemGroup>
 
 </Project>

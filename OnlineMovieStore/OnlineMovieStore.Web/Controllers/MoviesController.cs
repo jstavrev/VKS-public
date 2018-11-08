@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnlineMovieStore.Models.Models;
 using OnlineMovieStore.Services.Contracts;
 using OnlineMovieStore.Web.Models;
 
@@ -18,11 +19,23 @@ namespace OnlineMovieStore.Web.Controllers
             this.moviesService = moviesService ?? throw new ArgumentNullException(nameof(moviesService));
         }
 
-        public IActionResult Index(int page, string search)
+        public IActionResult Index(MovieSearchViewModel model)
         {
-            var movies = this.moviesService.ListAllMovies();
 
-            return View(new AllMoviesViewModel(movies));
+            if (model.SearchText == null)
+            {
+                model.Movies = this.moviesService.ListAllMovies(model.Page, 1);
+              //  model.Movies = this.moviesService.ListMovies(model.Page - 1, null);
+                model.TotalPages = (int)Math.Ceiling(this.moviesService.Total() / (double)1);
+            }
+            else
+            {
+                model.Movies = this.moviesService.ListByContainingText(model.SearchText,model.Page, 1);
+                // model.Movies = this.moviesService.ListMovies(model.Page - 1, model.SearchText);
+                model.TotalPages = (int)Math.Ceiling(this.moviesService.TotalContainingText(model.SearchText) / (double)1);
+            }
+
+            return View(model);
         }
 
         public IActionResult Details(string title)
@@ -32,8 +45,5 @@ namespace OnlineMovieStore.Web.Controllers
             return View(new MoviesViewModel(movie));
         }
 
-        
-       // [HttpPost]
-     //   public IActionResult FindMovieByTitle(Movi)
     }
 }
