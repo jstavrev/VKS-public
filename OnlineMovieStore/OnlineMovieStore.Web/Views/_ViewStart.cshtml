@@ -8,9 +8,13 @@
     @using Microsoft.AspNetCore.Identity;
     @inject IUsersService userService
     @inject UserManager<ApplicationUser> userManager
+    @inject SignInManager<ApplicationUser> signInManager
 
-    var id = this.userManager.GetUserId(User);
-    double balance = this.userService.GetBalance(id);
+    if (signInManager.IsSignedIn(User))
+    {
+        var id = this.userManager.GetUserId(User);
+        double balance = this.userService.GetBalance(id);
 
-    ViewData["Balance"] = balance;
+        ViewData["Balance"] = balance;
+    }
 }
