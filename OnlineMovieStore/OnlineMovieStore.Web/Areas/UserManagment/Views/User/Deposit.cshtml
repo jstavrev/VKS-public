@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> UserManager
+
+@model OnlineMovieStore.Web.Areas.UserManagment.Models.UserDepositViewModel
+
+<div class="breadcrumbs">
+    <a href="/Home/Index">Home</a>
+    <a href="/User/User/Index">Account</a>
+
+    <span>Deposit</span>
+</div>
+<div class="row">
+    <h3 class="text-center">Refund your Account</h3>
+    <div class="col-md-4">
+        <form method="post" action="/User/User/Deposit">
+            <div class="form-group">
+                <label for="depositAmount">Amount</label>
+                <input  asp-for="DepositSum"class="form-control" id="focusedInput" type="text">
+            </div>
+            <div class="form-group">
+                <label for="depositButton"></label>
+                <button type="submit">Deposit</button>
+            </div>
+            <div class="form-group">
+                <p>Current Account State: @Model.Balance</p>
+            </div>
+        </form>
+    </div>
+</div>

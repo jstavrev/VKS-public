@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="breadcrumbs">
+    <a href="/Home/Index">Home</a>
+    <span>Account</span>
+</div>
+<div class=" row">
+    <div class="col-md-4">
+
+        <a href="/User/User/OrdersDetails/" title="See your ordered movies"><h2 class="text-center">Orders Details</h2><img src="~/images/order.svg" style="width:300px;height:300px;" /></a>
+    </div>
+    <div class="col-md-4">
+
+        <a href="/User/User/Deposit/@UserManager.GetUserId(User)" title="Deposit to your Account"><h2 class="text-center">Deposit</h2> <img src="~/images/deposit.svg" style="width:300px;height:300px;" /></a>
+    </div>
+    <div class="col-md-4">
+
+        <a href="/User/User/AccountSettings/"><h2 class="text-center">Account Settings</h2> <img src="~/images/account.svg" style="width:300px;height:300px;" /></a>
+    </div>
+</div>

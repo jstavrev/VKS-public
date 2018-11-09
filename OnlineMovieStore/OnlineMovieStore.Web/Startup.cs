@@ -67,7 +67,6 @@ namespace OnlineMovieStore.Web
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

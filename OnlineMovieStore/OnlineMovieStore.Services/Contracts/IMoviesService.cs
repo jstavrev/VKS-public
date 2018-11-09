@@ -6,11 +6,13 @@ namespace OnlineMovieStore.Services.Contracts
 {
     public interface IMoviesService
     {
-        Movie AddMovie(string image, string title, short year, List<Genre> genres, int actorId, double price);
+        Movie AddMovie(string image, string title, short year, List<Genre> genres, int actorId, double price, string description, string trailerUrl);
 
         IEnumerable<Movie> ListAllMovies(int page = 1, int pageSize = 10);
 
-        IEnumerable<Movie> ListMovies(int page, string search);
+        IEnumerable<Movie> ListMovies();
+
+        IEnumerable<Movie> ListMoviesByHigherPrice(int count);
 
         IEnumerable<Movie> ListByContainingText(string searchText, int page = 1, int pageSize = 10);
 

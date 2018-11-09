@@ -24,6 +24,13 @@ namespace OnlineMovieStore.Models.Models
         [Range(1, 200)]
         public double Price { get; set; }
 
+        [Required]
+        public string TrailerURL { get; set; }
+
+        [Required]
+        [StringLength(350)]
+        public string Description { get; set; }
+
         public int ActorId { get; set; }
 
         public Actor Actor { get; set; }

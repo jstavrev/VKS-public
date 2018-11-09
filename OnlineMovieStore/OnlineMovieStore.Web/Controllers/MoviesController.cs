@@ -24,15 +24,15 @@ namespace OnlineMovieStore.Web.Controllers
 
             if (model.SearchText == null)
             {
-                model.Movies = this.moviesService.ListAllMovies(model.Page, 1);
+                model.Movies = this.moviesService.ListAllMovies(model.Page, 10);
               //  model.Movies = this.moviesService.ListMovies(model.Page - 1, null);
-                model.TotalPages = (int)Math.Ceiling(this.moviesService.Total() / (double)1);
+                model.TotalPages = (int)Math.Ceiling(this.moviesService.Total() / (double)10);
             }
             else
             {
-                model.Movies = this.moviesService.ListByContainingText(model.SearchText,model.Page, 1);
+                model.Movies = this.moviesService.ListByContainingText(model.SearchText,model.Page, 10);
                 // model.Movies = this.moviesService.ListMovies(model.Page - 1, model.SearchText);
-                model.TotalPages = (int)Math.Ceiling(this.moviesService.TotalContainingText(model.SearchText) / (double)1);
+                model.TotalPages = (int)Math.Ceiling(this.moviesService.TotalContainingText(model.SearchText) / (double)10);
             }
 
             return View(model);
@@ -40,10 +40,11 @@ namespace OnlineMovieStore.Web.Controllers
 
         public IActionResult Details(string title)
         {
+           // ModelState.Clear();
+
             var movie = this.moviesService.ListMoviesByTitle(title);
 
             return View(new MoviesViewModel(movie));
         }
-
     }
 }

@@ -2,9 +2,13 @@
     ViewData["Title"] = "Request Movie";
 }
 
+<div class="breadcrumbs">
+    <a href="/Home/Index">Home</a>
+    <span>Request Movie</span>
+</div>
 <h2 class="text-center">@ViewData["Title"]</h2>
 
-<div class="container">
+<div class="container  col-md-8">
     <form action="/action_page.php">
         <div class="row">
             <div class="col-25">
@@ -23,6 +27,7 @@
                 <textarea id="subject" name="subject" placeholder="Write something.." style="height: 196px; margin: 0px; width: 847px;"></textarea>
             </div>
         </div>
+        <br />
         <div class="row">
             <input type="submit" value="Submit">
         </div>

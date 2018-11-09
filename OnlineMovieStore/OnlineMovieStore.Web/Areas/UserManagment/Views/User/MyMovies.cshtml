@@ -1,0 +1,45 @@
+﻿@model OnlineMovieStore.Web.Areas.UserManagment.Models.UserMoviesViewModel
+
+@{
+    ViewData["Title"] = "My Movies";
+}
+
+<div class="breadcrumbs">
+    <a href="/Home/Index">Home</a>
+    <span>My Movies</span>
+</div>
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="row img-responsive" style="background-size:100% auto;">
+    @{ foreach (var movie in Model.content)
+        {
+            <div class="col-sm-3">
+                <div class="flip">
+                    <div class="card">
+                        <div class="face front">
+                            <div class="inner">
+                                <img class="img-responsive" src="@movie.Image">
+                            </div>
+                        </div>
+                        <div class="face back">
+                            <div class="inner text-center">
+                                <h3>@movie.Title</h3>
+                                <p><strong>Year</strong></p>
+                                <p>@movie.Year</p>
+                                <p><strong>Genre</strong></p>
+                                @foreach (var genre in movie.Genre)
+                                {
+                                    <p>@genre.Genre.Name</p>
+                                }
+                                <p><strong>Main Actor</strong></p>
+                                <p>@movie.ActorName</p>
+                                <a class="btn btn-default" href="/Movie/Details/@movie.Title">Know More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

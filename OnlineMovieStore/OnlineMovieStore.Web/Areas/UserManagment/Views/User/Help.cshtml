@@ -2,10 +2,15 @@
     ViewData["Title"] = "Report a problem";
 }
 
+<div class="breadcrumbs">
+    <a href="/Home/Index">Home</a>
+    <span>Help Center</span>
+</div>
+
 <h2>@ViewData["Title"]</h2>
-<div class="container">
+<div class="container col-sm-8">
     <form action="/action_page.php">
-        <div class="row">
+        <div class="row ">
             <div class="col-25">
                 <label for="fname">Theme</label>
             </div>
@@ -18,7 +23,7 @@
                 <label for="subject">Adittional info about request</label>
             </div>
             <div class="col-75">
-                <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+                <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px; width: 500px;"></textarea>
             </div>
         </div>
         <div class="row">

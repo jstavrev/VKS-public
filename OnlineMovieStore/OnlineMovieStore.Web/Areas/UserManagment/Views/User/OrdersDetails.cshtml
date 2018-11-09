@@ -1,0 +1,36 @@
+﻿@model OnlineMovieStore.Web.Areas.UserManagment.Models.UserOrdersViewModel
+<div class="breadcrumbs">
+    <a href="/Home/Index">Home</a>
+    <a href="/User/User/Index">Account</a>
+    <span>Order Details</span>
+</div>
+<div class="row">
+    <div>
+        <h2 class="text-center">Your Ordered Films</h2>
+        <div>
+            <div class="col-md-7">
+                <h4>Total Movies: <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>@Model.Orders.Count()</b></span></h4>
+                <style>
+                </style>
+                <div>
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>Movie Name</th>
+                            <th>Price</th>
+                        </tr>
+                        @foreach (var order in Model.Orders)
+                        {
+
+                            <tr>
+                                <td><a href="#">@order.Name</a></td>
+                                <td><span class="price">@order.Price</span></td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <hr>
+                <p>Total <span class="price" style="color:black"><b>$@Model.Orders.Sum(m => m.Price)</b></span></p>
+            </div>
+        </div>
+    </div>
+</div>

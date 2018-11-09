@@ -9,6 +9,7 @@
     <!-- Loading third party fonts -->
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
     <link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/css/customStyles.css" />
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
           asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
@@ -27,7 +28,7 @@
         <header class="site-header">
             <div class="container">
                 <a href="index.html" id="branding">
-                    <img src="images/logo.png" alt="" class="logo">
+                    <img src="~/images/logo.png" alt="" class="logo">
                     <div class="logo-copy">
                         <h1 class="site-title">Company Name</h1>
                         <small class="site-description">Tagline goes here</small>
@@ -39,13 +40,9 @@
                         <li class="menu-item current-menu-item"><a href="/Home/Index">Home</a></li>
                         <li class="menu-item"><a href="/Home/About">About</a></li>
                         <li class="menu-item"><a href="/Movies/Index">Movies</a></li>
-                        <li class="menu-item"><a href="joinus.html">Join us</a></li>
                         <li class="menu-item"><a href="/Home/Contact">Contact</a></li>
+                        <partial name="_LoginPartial" />
                     </ul> <!-- .menu -->
-                    <form action="#" class="search-form">
-                        <input type="text" placeholder="Search...">
-                        <button><i class="fa fa-search"></i></button>
-                    </form>
                 </div> <!-- .main-navigation -->
                 <div class="mobile-navigation"></div>
             </div>

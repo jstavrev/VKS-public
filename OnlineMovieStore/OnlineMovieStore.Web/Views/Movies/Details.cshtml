@@ -1,14 +1,15 @@
-﻿@model MoviesViewModel
-@{
+﻿@{
     ViewData["Title"] = "Details";
 }
+
+@model MoviesViewModel
 
 <h1>Details</h1>
 
 
 <div class="text-center">
     <h2>@Model.Title<span>(@Model.Year)</span></h2>
-    <img src="@Model.Image" class="text-center img-rounded" style="max-height: 500px; max-width: 500px;" alt="...">
+    <img data-toggle="modal" data-target="#myModal" src="@Model.Image" class="text-center img-rounded" style="max-height: 500px; max-width: 500px;" alt="...">
 
     <div>
         <h4>
@@ -24,9 +25,31 @@
             Price: @Model.Price$
         </h4>
     </div>
+
+    <div>
+        <h4>
+            Description: @Model.Description
+        </h4>
+    </div>
+
     <div>
         <button type="button" class="btn btn-secondary btn-lg">Buy movie</button>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <iframe width="560" height="315" src="@Model.TrailerUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </div>
 
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineMovieStore.Models.Models
 {
@@ -8,5 +9,8 @@ namespace OnlineMovieStore.Models.Models
         public ICollection<Order> Orders { get; set; }
 
         public ICollection<WatchedMovies> WatchedMovies { get; set; }
+
+        [Range(0, 100000000)]
+        public double Balance { get; set; }
     }
 }

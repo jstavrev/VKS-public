@@ -27,5 +27,36 @@ namespace OnlineMovieStore.Services
                .Include(m => m.Actor)
                .ToList();
         }
+
+        //TODO: Validations
+        public ApplicationUser GetUser(string id)
+        {
+            return this.context.Users.Find(id);
+        }
+
+        public IEnumerable<Movie> OrdersDetails(string id)
+        {
+            return this.context.Orders
+               .Where(u => u.UserId == id)
+               .Select(m => m.Movie)
+               .ToList();
+        }
+
+        public ApplicationUser AddToVallet(double amount, string userId)
+        {
+            var user = this.context.Users.Find(userId);
+            user.Balance += amount;
+
+            this.context.SaveChanges();
+
+            return user;
+        }
+
+        public double GetBalance(string id)
+        {
+            var user = this.context.Users.Find(id);
+
+            return user.Balance;
+        }
     }
 }

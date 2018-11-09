@@ -165,6 +165,8 @@ namespace OnlineMovieStore.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<double>("Balance");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -257,6 +259,10 @@ namespace OnlineMovieStore.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(350);
+
                     b.Property<string>("Image")
                         .IsRequired();
 
@@ -269,6 +275,9 @@ namespace OnlineMovieStore.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(40);
+
+                    b.Property<string>("TrailerURL")
+                        .IsRequired();
 
                     b.Property<short>("Year");
 

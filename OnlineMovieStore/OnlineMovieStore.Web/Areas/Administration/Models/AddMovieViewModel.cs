@@ -27,6 +27,13 @@ namespace OnlineMovieStore.Web.Areas.Administration.Models
         [Required]
         public string ImageURL { get; set; }
 
+        [Required]
+        public string TrailerURL { get; set; }
+
+        [Required]
+        [StringLength(350)]
+        public string Description { get; set; }
+
         public GenreCheckBox[] Genres { get; set; }
         public IEnumerable<SelectListItem> Actors { get; set; }
 

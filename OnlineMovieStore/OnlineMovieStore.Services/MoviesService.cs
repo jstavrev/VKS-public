@@ -18,7 +18,7 @@ namespace OnlineMovieStore.Services.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Movie AddMovie(string image, string title, short year, List<Genre> genres, int actorId, double price)
+        public Movie AddMovie(string image, string title, short year, List<Genre> genres, int actorId, double price, string description, string trailerUrl)
         {
             if (image == null)
             {
@@ -35,6 +35,21 @@ namespace OnlineMovieStore.Services.Services
                 throw new ArgumentOutOfRangeException("Title lenght cannot be more than 40 symbols!");
             }
 
+            if(description == null)
+            {
+                throw new ArgumentNullException("Description cannot be null");
+            }
+
+            if(description.Length > 350)
+            {
+                throw new ArgumentOutOfRangeException("Description cannot be more than 350 symbols");
+            }
+
+            if(trailerUrl == null)
+            {
+                throw new ArgumentNullException("Trailer Url cannot be null");
+            }
+
             var movie = this.context.Movies
               .FirstOrDefault(m => m.Title == title);
 
@@ -49,7 +64,9 @@ namespace OnlineMovieStore.Services.Services
                 Year = year,
                 Price = price,
                 ActorId = actorId,
-                Image = image
+                Image = image,
+                Description = description,
+                TrailerURL = trailerUrl
             };
 
             this.context.Movies.Add(movie);
@@ -99,7 +116,7 @@ namespace OnlineMovieStore.Services.Services
             return this.context.Movies.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
-        public IEnumerable<Movie> ListMovies(int page, string search)
+        public IEnumerable<Movie> ListMovies()
         {
             var moviesQuery = this.context.Movies
                 .AsQueryable();
@@ -108,24 +125,34 @@ namespace OnlineMovieStore.Services.Services
                 .Include(m => m.Actor)
                 .Include(m => m.Genres)
                     .ThenInclude(mg => mg.Genre);
-
-
-            if (search != null)
-            {
-                moviesQuery = moviesQuery.Where(m => m.Title.Contains(search));
-            }
-
-            if (page == 0)
-            {
-                moviesQuery = moviesQuery.Take(1);
-            }
-
-            if (page > 0)
-            {
-                moviesQuery = moviesQuery.Skip(page * 1).Take(1);
-            }
-
             
+            var movies = moviesQuery.ToList();
+
+            if (movies != null && movies.Count != 0)
+            {
+                return movies;
+            }
+            else
+            {
+                throw new EntityNotFoundException("Cannot find movies with this filter!");
+            }
+        }
+
+        public IEnumerable<Movie> ListMoviesByHigherPrice(int count)
+        {
+            if(count < 1)
+            {
+                throw new ArgumentOutOfRangeException("Count must be more than 0!");
+            }
+            var moviesQuery = this.context.Movies
+                .AsQueryable();
+
+            moviesQuery = moviesQuery
+                .Include(m => m.Actor)
+                .Include(m => m.Genres)
+                    .ThenInclude(mg => mg.Genre)
+                .OrderByDescending(m => m.Price)
+                .Take(count);
 
             var movies = moviesQuery.ToList();
 
