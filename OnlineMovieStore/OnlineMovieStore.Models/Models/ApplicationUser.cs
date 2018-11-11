@@ -11,6 +11,7 @@ namespace OnlineMovieStore.Models.Models
         public ICollection<WatchedMovies> WatchedMovies { get; set; }
 
         [Range(0, 100000000)]
+        [Required]
         public double Balance { get; set; }
     }
 }

@@ -23,5 +23,25 @@ namespace OnlineMovieStore.Services.Services
                 .Include(m => m.Movie)
                 .Include(u => u.User).ToList();
         }
+
+        public List<Order> ListByPage(int page = 1, int pageSize = 10)
+        {
+            return this.context.Orders.Include(u => u.User).Include(m => m.Movie).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public List<Order> ListOrdersContainingText(string searchText, int page = 1, int pageSize = 10)
+        {
+            return this.context.Orders.Include(u => u.User).Include(m => m.Movie).Where(o => o.User.UserName.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int TotalContainingText(string searchText)
+        {
+            return this.context.Orders.Include(u => u.User).Where(o => o.User.UserName.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).Count();
+        }
+
+        public int TotalOrders()
+        {
+            return this.context.Orders.Count();
+        }
     }
 }

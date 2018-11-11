@@ -128,3 +128,11 @@ cursor: pointer;
     margin: 0px !important;
     width: 240px;
 }
+
+a.disabled {
+    pointer-events: none;
+}
+
+.orange {
+    color: orange;
+}

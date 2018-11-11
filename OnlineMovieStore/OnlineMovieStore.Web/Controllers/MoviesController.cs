@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineMovieStore.Models.Models;
 using OnlineMovieStore.Services.Contracts;
@@ -14,9 +15,15 @@ namespace OnlineMovieStore.Web.Controllers
     {
         private readonly IMoviesService moviesService;
 
-        public MoviesController(IMoviesService moviesService)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        private readonly IUsersService usersService;
+
+        public MoviesController(IMoviesService moviesService, UserManager<ApplicationUser> userManager, IUsersService usersService)
         {
             this.moviesService = moviesService ?? throw new ArgumentNullException(nameof(moviesService));
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            this.usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
         }
 
         public IActionResult Index(MovieSearchViewModel model)
@@ -38,13 +45,34 @@ namespace OnlineMovieStore.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult Details(string title)
         {
-           // ModelState.Clear();
+            string userId = this.userManager.GetUserId(User);
+            var userOrderedMovies = this.usersService.Orders(userId);
 
             var movie = this.moviesService.ListMoviesByTitle(title);
 
-            return View(new MoviesViewModel(movie));
+            var model = new MoviesViewModel(movie);
+
+            foreach (var m in userOrderedMovies)
+            {
+                if(m.Title == title)
+                {
+                    model.IsOwned = true;
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Details(MoviesViewModel model)
+        {
+            string userId = this.userManager.GetUserId(User);
+            this.moviesService.BuyMovie(model.Title, userId);
+
+            return RedirectToAction("Details", "Movies", new { title = $"{model.Title}" });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using OnlineMovieStore.Models.Models;
 using OnlineMovieStore.Services.Contracts;
 using OnlineMovieStore.Services.Exceptions;
@@ -35,17 +36,17 @@ namespace OnlineMovieStore.Services.Services
                 throw new ArgumentOutOfRangeException("Title lenght cannot be more than 40 symbols!");
             }
 
-            if(description == null)
+            if (description == null)
             {
                 throw new ArgumentNullException("Description cannot be null");
             }
 
-            if(description.Length > 350)
+            if (description.Length > 350)
             {
                 throw new ArgumentOutOfRangeException("Description cannot be more than 350 symbols");
             }
 
-            if(trailerUrl == null)
+            if (trailerUrl == null)
             {
                 throw new ArgumentNullException("Trailer Url cannot be null");
             }
@@ -125,7 +126,7 @@ namespace OnlineMovieStore.Services.Services
                 .Include(m => m.Actor)
                 .Include(m => m.Genres)
                     .ThenInclude(mg => mg.Genre);
-            
+
             var movies = moviesQuery.ToList();
 
             if (movies != null && movies.Count != 0)
@@ -140,7 +141,7 @@ namespace OnlineMovieStore.Services.Services
 
         public IEnumerable<Movie> ListMoviesByHigherPrice(int count)
         {
-            if(count < 1)
+            if (count < 1)
             {
                 throw new ArgumentOutOfRangeException("Count must be more than 0!");
             }
@@ -308,7 +309,7 @@ namespace OnlineMovieStore.Services.Services
         }
 
         //TODO: NEEDS USER INFO
-        public string BuyMovie(string movieTitle)
+        public string BuyMovie(string movieTitle, string userId)
         {
             if (movieTitle == null)
             {
@@ -323,31 +324,29 @@ namespace OnlineMovieStore.Services.Services
                 throw new EntityNotFoundException($"Movie with title {movieTitle} already exists!");
             }
 
-            /*  var user = this.unitOfWork.GetRepo<User>().All()
-                  .FirstOrDefault(u => u.Username == this.userSession.user.Username);
+            var user = this.context.Users.Find(userId);
 
-              if (user.Balance < movie.Price)
-              {
-                  throw new ArgumentException("You don't have enough money to buy this movie!");
-              }
+            if (user.Balance < movie.Price)
+            {
+                throw new ArgumentException("You don't have enough money to buy this movie!");
+            }
 
-              this.context.WatchedMovies.Add(new WatchedMovies
-              {
-                  UserId = user.Id,
-                  MovieId = movie.Id
-              });
+            this.context.WatchedMovies.Add(new WatchedMovies
+            {
+                UserId = user.Id,
+                MovieId = movie.Id
+            });
 
-              this.context.Orders.Add(new Order
-              {
-                  UserId = user.Id,
-                  MovieId = movie.Id,
-                  Date = DateTime.Now
-              });
+            this.context.Orders.Add(new Order
+            {
+                UserId = user.Id,
+                MovieId = movie.Id,
+                Date = DateTime.Now
+            });
 
-              user.Balance -= movie.Price;
+            user.Balance -= movie.Price;
 
-              this.context.SaveChanges();
-              */
+            this.context.SaveChanges();
             return "You have succesfully added movie to your collection.";
         }
 
@@ -383,12 +382,12 @@ namespace OnlineMovieStore.Services.Services
 
         public IEnumerable<Movie> ListByContainingText(string searchText, int page = 1, int pageSize = 10)
         {
-            return this.context.Movies.Where(m => m.Title.Contains(searchText)).OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return this.context.Movies.Where(m => m.Title.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public int TotalContainingText(string searchText)
         {
-            return this.context.Movies.Where(m => m.Title.Contains(searchText)).ToList().Count();
+            return this.context.Movies.Where(m => m.Title.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList().Count();
         }
     }
 }

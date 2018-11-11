@@ -1,3 +1,20 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@{ @*Seeding the balance to all actions.*@
+
+@using OnlineMovieStore.Services.Contracts
+@using Microsoft.AspNetCore.Identity;
+@inject IUsersService userService
+@inject UserManager<ApplicationUser> userManager
+@inject SignInManager<ApplicationUser> signInManager
+
+if (signInManager.IsSignedIn(User))
+{
+    var id = this.userManager.GetUserId(User);
+    double balance = this.userService.GetBalance(id);
+
+    ViewData["Balance"] = balance;
+}
+}

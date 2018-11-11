@@ -8,6 +8,10 @@ namespace OnlineMovieStore.Web.Models
 {
     public class MoviesViewModel
     {
+        public MoviesViewModel()
+        {
+
+        }
         public MoviesViewModel(Movie movie)
         {
             this.Title = movie.Title;
@@ -20,6 +24,7 @@ namespace OnlineMovieStore.Web.Models
             this.Description = movie.Description;
             this.TrailerUrl = movie.TrailerURL;
 
+
         }
 
         public string Title { get; set; }
@@ -31,5 +36,6 @@ namespace OnlineMovieStore.Web.Models
         public DateTime? AddedOn { get;set; }
         public string Description { get; private set; }
         public string TrailerUrl { get; private set; }
+        public bool IsOwned { get; set; } = false;
     }
 }

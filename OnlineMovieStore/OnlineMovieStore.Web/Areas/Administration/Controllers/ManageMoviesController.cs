@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineMovieStore.Models.Models;
 using OnlineMovieStore.Services.Contracts;
+using OnlineMovieStore.Services.Services.Contracts;
 using OnlineMovieStore.Web.Areas.Administration.Models;
 using OnlineMovieStore.Web.Data;
 using System;
@@ -10,18 +12,22 @@ using System.Linq;
 namespace OnlineMovieStore.Web.Areas.Administration.Controllers
 {
     [Area("Administration")]
+    [Authorize(Roles = "Admin")]
     public class ManageMoviesController : Controller
     {
-        private const int pageSize = 20;
-        private ApplicationDbContext context;
+        private const int pageSize = 10;
+        private IActorsService actorsService;
+        private IGenresService genreService;
         private IMoviesService movieService;
 
-        public ManageMoviesController(ApplicationDbContext ctxt, IMoviesService movie)
+        public ManageMoviesController(IActorsService actorsService, IMoviesService movie, IGenresService genreService)
         {
-            this.context = ctxt;
+            this.actorsService = actorsService;
+            this.genreService = genreService;
             this.movieService = movie;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Movies(MoviesIndexViewModel model)
         {
             if (model.SearchText == null)
@@ -38,10 +44,11 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AddMovie()
         {
-            List<Actor> actors = this.context.Actors.ToList();
-            List<Genre> genres = this.context.Genres.ToList();
+            List<Actor> actors = this.actorsService.GetAll().ToList();
+            List<Genre> genres = this.genreService.GetAll().ToList();
 
             AddMovieViewModel vM = new AddMovieViewModel(actors, genres);
 
@@ -49,12 +56,13 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddMovie(AddMovieViewModel vm)
         {
             if (!this.ModelState.IsValid)
             {
-                List<Actor> actors = this.context.Actors.ToList();
-                List<Genre> genre = this.context.Genres.ToList();
+                List<Actor> actors = this.actorsService.GetAll().ToList();
+                List<Genre> genre = this.genreService.GetAll().ToList();
 
                 AddMovieViewModel model = new AddMovieViewModel(actors, genre);
 

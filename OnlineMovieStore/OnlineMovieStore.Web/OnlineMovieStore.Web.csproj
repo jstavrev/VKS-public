@@ -27,6 +27,9 @@
     <Content Update="Areas\Administration\Views\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\Administration\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Identity\Pages\Account\Manage\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

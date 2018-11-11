@@ -9,5 +9,10 @@ namespace OnlineMovieStore.Services.Services.Contracts
     {
         Genre AddGenre(string title);
         Genre DeleteGenre(string title);
+        IEnumerable<Genre> GetAll();
+        int Total();
+        int TotalContainingText(string searchText);
+        IEnumerable<Genre> GetGenresPerPage(int page, int pageSize);
+        IEnumerable<Genre> ListByContainingText(string searchText, int page, int pageSize);
     }
 }

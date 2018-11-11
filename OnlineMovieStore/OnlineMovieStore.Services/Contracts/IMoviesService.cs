@@ -26,7 +26,7 @@ namespace OnlineMovieStore.Services.Contracts
 
         Movie DeleteMovie(string title);
 
-        string BuyMovie(string movieTitle);
+        string BuyMovie(string movieTitle, string userId);
 
         IEnumerable<Movie> ListMyMovies();
 

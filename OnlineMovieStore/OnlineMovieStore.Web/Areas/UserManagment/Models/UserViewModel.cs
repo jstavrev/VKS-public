@@ -5,6 +5,10 @@ namespace OnlineMovieStore.Web.Areas.UserManagment.Models
 {
     public class UserViewModel
     {
+        public UserViewModel()
+        {
+        }
+
         public UserViewModel(ApplicationUser user)
         {
             this.Username = user.UserName;

@@ -10,12 +10,11 @@
 }
 
 <div>
-    <h2>Movies</h2>
+    <h2 align="center">Movies</h2>
 </div>
 
-
 <div class="row pull-right col-md-2">
-    <input type="button" class="form-control" value="AddMovie" onclick="location.href='@Url.Action("AddMovie", "ManageMovies")'" />
+    <input type="button" class="form-control" value="Add Movie" onclick="location.href='@Url.Action("AddMovie", "ManageMovies")'" />
 </div>
 
 <div class="row">
@@ -44,9 +43,9 @@
         @foreach (var movie in Model.Movies)
         {
             <tr>
-                <td>@movie.Title</td>
+                <td><a href="/Movies/Details?=@movie.Title">@movie.Title</a></td>
                 <td>@movie.Year</td>
-                <td>@movie.Price</td>
+                <td>$@movie.Price</td>
             </tr>
         }
     </tbody>
