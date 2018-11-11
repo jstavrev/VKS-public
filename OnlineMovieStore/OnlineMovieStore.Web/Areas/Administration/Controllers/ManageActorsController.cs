@@ -48,7 +48,12 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AddActor(AddActorViewModel vM)
         {
-            var actors = this.actorsService.GetAll().ToList();
+            if (!this.ModelState.IsValid)
+            {
+                return View();
+            }
+
+                var actors = this.actorsService.GetAll().ToList();
 
             foreach (var actor in actors)
             {

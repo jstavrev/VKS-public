@@ -10,27 +10,20 @@ namespace OnlineMovieStore.Services.Contracts
 
         IEnumerable<Movie> ListAllMovies(int page = 1, int pageSize = 10);
 
-        IEnumerable<Movie> ListMovies();
-
         IEnumerable<Movie> ListMoviesByHigherPrice(int count);
 
         IEnumerable<Movie> ListByContainingText(string searchText, int page = 1, int pageSize = 10);
 
-        IEnumerable<Movie> ListMoviesByActor(string firstName, string lastName);
-
         Movie ListMoviesByTitle(string name);
-
-        IEnumerable<Movie> ListMoviesByYear(short year);
 
         Movie UpdateMoviePrice(string title, double price);
 
-        Movie DeleteMovie(string title);
+        Movie DeleteMovie(int id);
 
         string BuyMovie(string movieTitle, string userId);
 
-        IEnumerable<Movie> ListMyMovies();
-
         int Total();
+
         int TotalContainingText(string searchText);
     }
 }

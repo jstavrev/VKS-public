@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using OnlineMovieStore.Models.Models;
 using OnlineMovieStore.Services.Contracts;
 using OnlineMovieStore.Web.Models;
@@ -14,16 +15,17 @@ namespace OnlineMovieStore.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IMoviesService moviesService;
+        private readonly IMemoryCache cache;
 
-        public HomeController(IMoviesService moviesService)
+        public HomeController(IMoviesService moviesService, IMemoryCache cache)
         {
             this.moviesService = moviesService ?? throw new ArgumentNullException(nameof(moviesService));
+            this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
         }
 
         public IActionResult Index()
         {
-            var movies = this.moviesService
-                .ListMoviesByHigherPrice(9);
+            var movies = this.GetMoviesCashed();
 
             AllMoviesViewModel model = new AllMoviesViewModel(movies);
 
@@ -53,6 +55,15 @@ namespace OnlineMovieStore.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private IEnumerable<Movie> GetMoviesCashed()
+        {
+            return this.cache.GetOrCreate("HigestPriceMovies", entry =>
+            {
+                entry.AbsoluteExpiration = DateTime.UtcNow.AddHours(3);
+                return this.moviesService.ListMoviesByHigherPrice(9);
+            });
         }
     }
 }

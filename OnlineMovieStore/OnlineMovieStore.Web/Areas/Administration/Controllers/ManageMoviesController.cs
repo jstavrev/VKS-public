@@ -83,5 +83,12 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
 
             return RedirectToAction("Movies", "ManageMovies");
         }
+
+        public IActionResult Delete(int id)
+        {
+
+            this.movieService.DeleteMovie(id);
+            return RedirectToAction("Movies", "ManageMovies");
+        }
     }
 }

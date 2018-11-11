@@ -8,11 +8,13 @@ namespace OnlineMovieStore.Web.Areas.Administration.Models
 {
     public class AddActorViewModel
     {
+        [Required]
         public string FirstName { get; set; }
 
+        [Required]
         public string LastName { get; set; }
 
+        [Required]
         public int Age { get; set; }
-
     }
 }

@@ -3,3 +3,8 @@
 @using OnlineMovieStore.Models.Models
 @using OnlineMovieStore.Services.Contracts
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using OnlineMovieStore.Services.Contracts
+@using Microsoft.AspNetCore.Identity;
+@inject IUsersService userService
+@inject UserManager<ApplicationUser> userManager
+@inject SignInManager<ApplicationUser> signInManager

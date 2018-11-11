@@ -79,6 +79,15 @@ namespace OnlineMovieStore.Web.Areas.UserManagment.Controllers
         [HttpPost]
         public IActionResult Deposit(UserDepositViewModel model)
         {
+            if(!ModelState.IsValid)
+            {
+                string id = userManager.GetUserId(User);
+                var u = this.userService.GetUser(id);
+                model.Balance = u.Balance;
+
+                return View(model);
+            }
+
             var user = this.userService.AddToVallet(model.DepositSum, this.userManager.GetUserId(User));
             if (user == null)
             {

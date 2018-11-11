@@ -48,6 +48,11 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AddGenre(AddGenreViewModel vM)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return View();
+            }
+
             this.genreService.AddGenre(vM.Name);
 
             return RedirectToAction("Genres", "ManageGenres");

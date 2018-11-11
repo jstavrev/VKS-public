@@ -56,7 +56,10 @@ namespace OnlineMovieStore.Web
             services.AddScoped<IGenresService, GenresService>();
             services.AddScoped<IOrdersService, OrdersService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            services.AddMemoryCache();
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
             .AddRazorPagesOptions(options =>
              {
                  options.AllowAreas = true;

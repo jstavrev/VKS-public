@@ -37,6 +37,7 @@
             <th>Title</th>
             <th>Year</th>
             <th>Price</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -46,6 +47,11 @@
                 <td><a href="/Movies/Details?=@movie.Title">@movie.Title</a></td>
                 <td>@movie.Year</td>
                 <td>$@movie.Price</td>
+                <td>
+                    <form asp-controller="ManageMovies" asp-action="Delete" asp-route-id="@movie.Id" data-ajax="true" method="post">
+                        <input type="submit" value="Delete" class="btn btn-default" />
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

@@ -85,25 +85,9 @@ namespace OnlineMovieStore.Services.Services
             return movie;
         }
 
-        public Movie DeleteMovie(string title)
+        public Movie DeleteMovie(int id)
         {
-            if (title == null)
-            {
-                throw new ArgumentNullException("Title cannot be null!");
-            }
-
-            if (title.Length > 40)
-            {
-                throw new ArgumentOutOfRangeException("Title lenght cannot be more than 40 symbols!");
-            }
-
-            var movie = this.context.Movies
-                .FirstOrDefault(m => m.Title == title);
-
-            if (movie == null)
-            {
-                throw new EntityNotFoundException($"Movie with title {title} does not exist!");
-            }
+            var movie = this.context.Movies.Find(id);
 
             movie.IsDeleted = true;
 
@@ -114,12 +98,12 @@ namespace OnlineMovieStore.Services.Services
 
         public IEnumerable<Movie> ListAllMovies(int page = 1, int pageSize = 10)
         {
-            return this.context.Movies.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return this.context.Movies.Where(m => m.IsDeleted == false).OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public IEnumerable<Movie> ListMovies()
         {
-            var moviesQuery = this.context.Movies
+            var moviesQuery = this.context.Movies.Where(m => m.IsDeleted == false)
                 .AsQueryable();
 
             moviesQuery = moviesQuery
@@ -145,7 +129,7 @@ namespace OnlineMovieStore.Services.Services
             {
                 throw new ArgumentOutOfRangeException("Count must be more than 0!");
             }
-            var moviesQuery = this.context.Movies
+            var moviesQuery = this.context.Movies.Where(m => m.IsDeleted == false)
                 .AsQueryable();
 
             moviesQuery = moviesQuery
@@ -154,110 +138,6 @@ namespace OnlineMovieStore.Services.Services
                     .ThenInclude(mg => mg.Genre)
                 .OrderByDescending(m => m.Price)
                 .Take(count);
-
-            var movies = moviesQuery.ToList();
-
-            if (movies != null && movies.Count != 0)
-            {
-                return movies;
-            }
-            else
-            {
-                throw new EntityNotFoundException("Cannot find movies with this filter!");
-            }
-        }
-
-        public IEnumerable<Movie> ListMoviesByActor(string firstName, string lastName)
-        {
-            if (firstName == null)
-            {
-                throw new ArgumentNullException("Firt name cannot be null!");
-            }
-
-            if (firstName.Length > 25)
-            {
-                throw new ArgumentOutOfRangeException("Fist name cannot be longer than 25 symbols!");
-            }
-
-            if (lastName == null)
-            {
-                throw new ArgumentNullException("Last name cannot be null!");
-            }
-
-            if (lastName.Length > 25)
-            {
-                throw new ArgumentOutOfRangeException("Last name cannot be longer than 25 symbols!");
-            }
-
-            var moviesQuery = this.context.Movies
-                .AsQueryable();
-
-            moviesQuery = moviesQuery
-                 .Include(m => m.Actor)
-                 .Include(m => m.Genres)
-                     .ThenInclude(mg => mg.Genre)
-                 .Where(m => m.Actor.FirstName == firstName && m.Actor.LastName == lastName);
-
-            var movies = moviesQuery.ToList();
-
-            if (movies != null && movies.Count != 0)
-            {
-                return movies;
-            }
-            else
-            {
-                throw new EntityNotFoundException("Cannot find movies with this filter!");
-            }
-        }
-
-        public Movie ListMoviesByTitle(string title)
-        {
-            if (title == null)
-            {
-                throw new ArgumentNullException("Title cannot be null");
-            }
-
-            if (title.Length > 40)
-            {
-                throw new ArgumentOutOfRangeException("Title length cannot be more than 40 symbols");
-            }
-
-            var moviesQuery = this.context.Movies
-                .AsQueryable();
-
-            moviesQuery = moviesQuery
-               .Include(m => m.Actor)
-               .Include(m => m.Genres)
-                   .ThenInclude(mg => mg.Genre)
-               .Where(m => m.Title == title);
-
-            var movie = moviesQuery.ToList()[0];
-
-            if (movie != null)
-            {
-                return movie;
-            }
-            else
-            {
-                throw new EntityNotFoundException("Cannot find movies with this filter!");
-            }
-        }
-
-        public IEnumerable<Movie> ListMoviesByYear(short year)
-        {
-            if (year < 1800 || year > 9999)
-            {
-                throw new ArgumentOutOfRangeException("Year must be in between 1800 and 9999");
-            }
-
-            var moviesQuery = this.context.Movies
-                .AsQueryable();
-
-            moviesQuery = moviesQuery
-               .Include(m => m.Actor)
-               .Include(m => m.Genres)
-                   .ThenInclude(mg => mg.Genre)
-               .Where(m => m.Year == year);
 
             var movies = moviesQuery.ToList();
 
@@ -308,7 +188,6 @@ namespace OnlineMovieStore.Services.Services
             return movie;
         }
 
-        //TODO: NEEDS USER INFO
         public string BuyMovie(string movieTitle, string userId)
         {
             if (movieTitle == null)
@@ -350,31 +229,6 @@ namespace OnlineMovieStore.Services.Services
             return "You have succesfully added movie to your collection.";
         }
 
-        //TODO: NEEDS USER INFO2
-        public IEnumerable<Movie> ListMyMovies()
-        {
-            /*var user = this.unitOfWork.GetRepo<User>().All()
-                .FirstOrDefault(u => u.Username == this.userSession.user.Username);
-
-            var watchedMovies = this.context.WatchedMovies
-                .Where(u => u.UserId == user.Id)
-                .Select(m => m.Movie)
-                .Include(m => m.Genres)
-                    .ThenInclude(mg => mg.Genre)
-                .Include(m => m.Actor)
-                .ToList();
-
-            if (watchedMovies != null && watchedMovies.Count != 0)
-            {
-                return watchedMovies;
-            }
-            else
-            {
-                throw new EntityNotFoundException("Cannot find movies with this filter!");
-            }*/
-            return new List<Movie>();
-        }
-
         public int Total()
         {
             return this.context.Movies.Count();
@@ -382,12 +236,46 @@ namespace OnlineMovieStore.Services.Services
 
         public IEnumerable<Movie> ListByContainingText(string searchText, int page = 1, int pageSize = 10)
         {
-            return this.context.Movies.Where(m => m.Title.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return this.context.Movies.Where(m => m.IsDeleted == false).Where(m => m.Title.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public int TotalContainingText(string searchText)
         {
             return this.context.Movies.Where(m => m.Title.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList().Count();
+        }
+
+        public Movie ListMoviesByTitle(string title)
+        {
+            if (title == null)
+            {
+                throw new ArgumentNullException("Title cannot be null");
+            }
+
+            if (title.Length > 40)
+            {
+                throw new ArgumentOutOfRangeException("Title length cannot be more than 40 symbols");
+            }
+
+            var moviesQuery = this.context.Movies
+                .AsQueryable();
+
+            moviesQuery = moviesQuery
+               .Include(m => m.Actor)
+               .Include(m => m.Genres)
+                   .ThenInclude(mg => mg.Genre)
+               .Where(m => m.Title == title);
+
+            var movie = moviesQuery.ToList()[0];
+
+            if (movie != null)
+            {
+                return movie;
+            }
+            else
+            {
+                throw new EntityNotFoundException("Cannot find movies with this filter!");
+            }
+
         }
     }
 }
