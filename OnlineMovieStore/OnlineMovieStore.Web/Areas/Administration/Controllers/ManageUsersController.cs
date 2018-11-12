@@ -38,6 +38,5 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
 
             return View(model);
         }
-
     }
 }

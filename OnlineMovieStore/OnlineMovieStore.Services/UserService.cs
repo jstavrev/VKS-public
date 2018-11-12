@@ -74,14 +74,7 @@ namespace OnlineMovieStore.Services
                .Select(m => m.Movie)
                .ToList();
 
-            if (userMovieDetails == null)
-            {
-                throw new EntityNotFoundException("Can't find orders with this user information");
-            }
-            else
-            {
                 return userMovieDetails;
-            }
         }
 
         public ApplicationUser AddToVallet(double amount, string userId)
@@ -167,11 +160,6 @@ namespace OnlineMovieStore.Services
         {
             var allUsers = this.context.Users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-            if (allUsers == null)
-            {
-                throw new EntityNotFoundException("Can't find users");
-            }
-
             return allUsers;
         }
 
@@ -182,27 +170,12 @@ namespace OnlineMovieStore.Services
 
         public int TotalContainingText(string searchText)
         {
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
-                throw new ArgumentNullException("Parameter searchText is null");
-            }
-
             return this.context.Users.Where(u => u.UserName.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).Count();
         }
 
         public IEnumerable<ApplicationUser> UsersContainingText(string searchText, int page = 1, int pageSize = 10)
         {
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
-                throw new ArgumentNullException("Parameter searchText is null");
-            }
-
             var users = this.context.Users.Where(u => u.UserName.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-            if (users == null)
-            {
-                throw new EntityNotFoundException("Can't find user with this key information");
-            }
 
             return users;
         }
