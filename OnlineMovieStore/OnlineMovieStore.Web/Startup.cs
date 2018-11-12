@@ -58,6 +58,12 @@ namespace OnlineMovieStore.Web
 
             services.AddMemoryCache();
 
+            services
+                .AddMvc(options =>
+                {
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                });
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
             .AddRazorPagesOptions(options =>
