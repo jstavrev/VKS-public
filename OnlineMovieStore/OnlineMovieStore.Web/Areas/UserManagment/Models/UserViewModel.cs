@@ -1,5 +1,6 @@
 ﻿using OnlineMovieStore.Models.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineMovieStore.Web.Areas.UserManagment.Models
 {
@@ -19,12 +20,17 @@ namespace OnlineMovieStore.Web.Areas.UserManagment.Models
             this.PhoneNumber = user.PhoneNumber;
         }
 
+        [Required]
+        [StringLength(20)]
         public string Username { get; set; }
 
         public double Balance { get; set; }
 
+        [Required]
+        [StringLength(20)]
         public string Email { get; set; }
 
+        [StringLength(10)]
         public string PhoneNumber { get; set; }
 
         public bool IsEmailConfirmed { get; set; }

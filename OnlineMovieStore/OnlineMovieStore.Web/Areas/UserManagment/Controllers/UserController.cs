@@ -118,6 +118,18 @@ namespace OnlineMovieStore.Web.Areas.UserManagment.Controllers
         [HttpPost]
         public IActionResult AccountSettings(UserViewModel model)
         {
+            if(!ModelState.IsValid)
+            {
+                string id = this.userManager.GetUserId(User);
+                var u = this.userService.GetUser(id);
+
+                model.Username = u.UserName;
+                model.Email = u.Email;
+                model.PhoneNumber = u.PhoneNumber;
+
+                return View(model);
+            }
+
             if (this.ModelState.IsValid)
             {
                 //Update user settings

@@ -12,6 +12,7 @@ using OnlineMovieStore.Web.Controllers;
 using OnlineMovieStore.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 
 namespace OnlineMovieStore.Web.Tests.MoviesControllerTests
@@ -79,12 +80,12 @@ namespace OnlineMovieStore.Web.Tests.MoviesControllerTests
             var redirectResult = (RedirectToActionResult)result;
             Assert.AreEqual("Details", redirectResult.ActionName);
             Assert.AreEqual("Movies", redirectResult.ControllerName);
-
-            //Assert.IsNull(redirectResult.RouteValues);
+            var redResult = redirectResult.RouteValues.Values.ToList();
+            Assert.AreEqual("Title", redResult[0]);
         }
 
         [TestMethod]
-        public void PublishAction_InvalidModelState_RedisplaysView()
+        public void DetailsAction_InvalidModelState_RedisplaysView()
         {
             var controller = this.SetupController();
             controller.ModelState.AddModelError("error", "error");

@@ -19,7 +19,7 @@ namespace OnlineMovieStore.Web.Tests.AdminControllerTests
         [TestMethod]
         public void IndexAction_ReturnsViewResult()
         {
-            var ordersService = this.SetupMockMoviesService();
+            var ordersService = this.SetupMockOrdersService();
 
             var viewModelMock = new Mock<AdminIndexViewModel>();
             var controller = new Areas.Admin.Controllers.AdminController(ordersService.Object);
@@ -33,7 +33,7 @@ namespace OnlineMovieStore.Web.Tests.AdminControllerTests
         [TestMethod]
         public void IndexAction_ReturnsCorrectViewModel()
         {
-            var ordersService = this.SetupMockMoviesService();
+            var ordersService = this.SetupMockOrdersService();
             var viewModelMock = new Mock<AdminIndexViewModel>();
             var controller = new Areas.Admin.Controllers.AdminController(ordersService.Object);
 
@@ -46,40 +46,40 @@ namespace OnlineMovieStore.Web.Tests.AdminControllerTests
         [TestMethod]
         public void IndexAction_CallCorrectServiceMethod()
         {
-            var ordersService = this.SetupMockMoviesService();
+            var ordersService = this.SetupMockOrdersService();
             var viewModelMock = new Mock<AdminIndexViewModel>();
             var controller = new Areas.Admin.Controllers.AdminController(ordersService.Object);
             
             var result = controller.Index(viewModelMock.Object) as ViewResult;
 
-            ordersService.Verify(m => m.TotalContainingText(It.IsAny<string>()), Times.Once);
-            ordersService.Verify(m => m.ListOrdersContainingText(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()), Times.Once);
+            ordersService.Verify(o => o.TotalContainingText(It.IsAny<string>()), Times.Once);
+            ordersService.Verify(o => o.ListOrdersContainingText(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
                   
-        private Mock<IOrdersService> SetupMockMoviesService()
+        private Mock<IOrdersService> SetupMockOrdersService()
         {
-            var moviesServiceMock = new Mock<IOrdersService>();
-            moviesServiceMock
+            var ordersServiceMock = new Mock<IOrdersService>();
+            ordersServiceMock
                 .Setup(o => o.ListAllOrders())
                 .Returns(new List<Order>());
 
-            moviesServiceMock
+            ordersServiceMock
                 .Setup(o => o.ListOrdersContainingText(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(new List<Order>());
 
-            moviesServiceMock
+            ordersServiceMock
                 .Setup(o => o.ListByPage(It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(new List<Order>());
 
-            moviesServiceMock
-                .Setup(ms => ms.TotalOrders())
+            ordersServiceMock
+                .Setup(o => o.TotalOrders())
                 .Returns(It.IsAny<int>());
 
-            moviesServiceMock
-                .Setup(ms => ms.TotalContainingText(It.IsAny<string>()))
+            ordersServiceMock
+                .Setup(o => o.TotalContainingText(It.IsAny<string>()))
                 .Returns(It.IsAny<int>());
 
-            return moviesServiceMock;
+            return ordersServiceMock;
         }
     }
 }
