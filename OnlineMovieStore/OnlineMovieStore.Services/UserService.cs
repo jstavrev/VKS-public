@@ -165,6 +165,7 @@ namespace OnlineMovieStore.Services
 
         public int Total()
         {
+
             return this.context.Users.Count();
         }
 
