@@ -25,5 +25,7 @@ namespace OnlineMovieStore.Services.Contracts
         int Total();
 
         int TotalContainingText(string searchText);
+
+        IEnumerable<Movie> GetAll();
     }
 }

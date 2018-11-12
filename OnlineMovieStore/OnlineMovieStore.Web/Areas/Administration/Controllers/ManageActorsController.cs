@@ -53,11 +53,11 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
                 return View();
             }
 
-                var actors = this.actorsService.GetAll().ToList();
+            var actors = this.actorsService.GetAll().ToList();
 
             foreach (var actor in actors)
             {
-                if (actor.FirstName == vM.FirstName && actor.LastName == vM.LastName)
+                if (actor.FirstName.Equals(vM.FirstName, StringComparison.InvariantCultureIgnoreCase) && actor.LastName.Equals(vM.LastName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     ViewData["ActorExists"] = "An actor with this name already exists!";
                     return View(vM);

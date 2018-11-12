@@ -69,6 +69,17 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
                 return View(model);
             }
 
+            var movies = this.movieService.GetAll();
+
+            foreach (var movie in movies)
+            {
+                if (movie.Title.Equals(vm.Title, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ViewData["MovieExists"] = "A movie with this title already exists!";
+                    return View(vm);
+                }
+            }
+
             List<Genre> genres = new List<Genre>();
 
             foreach (var g in vm.Genres)

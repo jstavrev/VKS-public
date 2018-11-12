@@ -6,6 +6,8 @@
 
 <h2>AddMovie</h2>
 
+<div class="danger">@ViewData["MovieExists"]</div>
+
 <form asp-controller="ManageMovies" asp-action="AddMovie" method="post">
 
     <div class="form-group">

@@ -277,5 +277,10 @@ namespace OnlineMovieStore.Services.Services
             }
 
         }
+
+        public IEnumerable<Movie> GetAll()
+        {
+            return this.context.Movies.ToList();
+        }
     }
 }

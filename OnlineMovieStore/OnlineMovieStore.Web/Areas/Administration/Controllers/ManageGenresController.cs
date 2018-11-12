@@ -48,6 +48,17 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AddGenre(AddGenreViewModel vM)
         {
+            var genres = this.genreService.GetAll();
+
+            foreach (var g in genres)
+            {
+                if (g.Name.Equals(vM.Name, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ViewData["GenreExists"] = "A genre with this name already exists!";
+                    return View(vM);
+                }
+            }
+
             if (this.ModelState.IsValid)
             {
                 this.genreService.AddGenre(vM.Name);
@@ -55,6 +66,7 @@ namespace OnlineMovieStore.Web.Areas.Administration.Controllers
                 return RedirectToAction("Genres", "ManageGenres");
 
             }
+
             return View(vM);
         }
     }
